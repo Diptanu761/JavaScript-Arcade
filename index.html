@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Arcade</title>
+    <link rel="icon" href="images/icon02.png">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Orbitron", serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            letter-spacing: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .typing-text {
+            font-size: 4rem;
+            color: #ff85b3;
+            font-weight: bold;
+            display: inline;
+        }
+
+        .typing-cursor {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #fff;
+            display: inline;
+            animation: blink 0.7s steps(1) infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+            text-align: left;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        input {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        select {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .custom-dropdown {
+            position: relative;
+            width: 100%;
+            margin-top: 10px;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+        }
+
+        .dropdown-selected {
+            display: flex;
+            align-items: centre;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1rem;
+            color: #333;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .dropdown-selected:hover {
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown-selected i {
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+
+        .dropdown-selected.active i {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-list {
+            display: none;
+            position: absolute;
+            top: calc(100% + 5px);
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 5px;
+            overflow: hidden;
+            z-index: 10;
+            scroll-behavior: smooth;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+
+        .dropdown-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            font-size: 1rem;
+            color: #333;
+            transition: background-color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .dropdown-list li:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .dropdown-list img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        button {
+            background: #ff85b3;
+            color: #fff;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background: #ff5588;
+        }
+
+        .music-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .music-button i {
+            font-size: 2.9rem;
+            color: #4681e7;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Welcome To <span class="typing-text"></span><span class="typing-cursor">|</span></h1>
+        <div class="form-container">
+            <form id="game-form">
+                <label for="name">Enter Your Name:</label>
+                <input type="text" id="name" placeholder="Your name..." required>
+
+                <label for="game">Select a Game to Play:</label>
+                <div class="custom-dropdown">
+                    <div class="dropdown-selected">
+                        <span>Select a game to play</span>
+                        <i class="bx bx-chevron-down"></i>
+                    </div>
+                    <ul class="dropdown-list">
+                        <li data-game="wscramble.html">
+                            <img src="images/icon01.png" alt="Word Scramble Icon">
+                            Word Scramble
+                        </li>
+                        <li data-game="snakegame.html">
+                            <img src="images/icon03.png" alt="Snake Game Icon">
+                            Snake Game
+                        </li>
+                        <li data-game="rockndscissors.html">
+                            <img src="images/icon04.png" alt="Rock Paper Scissor">
+                            Rock Paper Scissor
+                        </li>
+                        <li data-game="hangman.html">
+                            <img src="images/icon05.png" alt="Rock Paper Scissor">
+                            HangMan Game
+                        </li>
+                        <li data-game="flappybird.html">
+                            <img src="images/icon06.png" alt="Rock Paper Scissor">
+                            Flappy Bird Game
+                        </li>
+                    </ul>
+                </div>
+
+                <button type="submit">Start</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="music-button" id="music-button">
+        <i class="bx bx-play"></i>
+    </div>
+
+    <audio id="background-music" loop>
+        <source src="bg-music.mp3" type="audio/mp3">
+    </audio>
+
+    <script>
+        // Typing animation for "JavaScript Gaming Hub"
+        const typingTextElement = document.querySelector(".typing-text");
+        const text = "Javascript Arcade";
+        const cursorElement = document.querySelector(".typing-cursor");
+        let index = 0;
+
+        function typeEffect() {
+            if (index < text.length) {
+                typingTextElement.textContent += text.charAt(index);
+                index++;
+                setTimeout(typeEffect, 150);
+            } else {
+                setTimeout(() => {
+                    typingTextElement.textContent = "";
+                    index = 0;
+                    typeEffect();
+                }, 1000);
+            }
+        }
+
+        typeEffect();
+
+        // Form submission logic
+        const form = document.getElementById("game-form");
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value.trim();
+
+            if (!name) {
+                alert("Please enter your name!");
+                return;
+            }
+
+            if (!selectedGame) {
+                alert("Please select a game!");
+                return;
+            }
+
+            // Save the name (if needed for the game page)
+            localStorage.setItem("playerName", name);
+
+            // Redirect to the selected game
+            window.location.href = selectedGame;
+        });
+
+        // music toggle logic
+        const musicButton = document.getElementById("music-button");
+        const musicIcon = musicButton.querySelector("i");
+        const backgroundMusic = document.getElementById("background-music");
+
+        let isPlaying = false;
+
+        musicButton.addEventListener("click", () => {
+            if (isPlaying) {
+                backgroundMusic.pause();
+                musicIcon.classList.replace("bx-pause", "bx-play");
+            } else {
+                backgroundMusic.play();
+                musicIcon.classList.replace("bx-play", "bx-pause");
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // dropdown logic
+        const dropdown = document.querySelector('.custom-dropdown');
+        const selected = document.querySelector('.dropdown-selected');
+        const dropdownList = document.querySelector('.dropdown-list');
+        const StartButton = document.querySelector("#game-form button");
+
+        let selectedGame = null;
+
+        // Toggle dropdown visibility
+        selected.addEventListener('click', () => {
+            dropdownList.style.display = dropdownList.style.display === 'block' ? 'none' : 'block';
+            selected.classList.toggle('active');
+        });
+
+        // Handle game selection
+        dropdownList.addEventListener('click', (e) => {
+            const selectedItem = e.target.closest('li');
+            if (selectedItem) {
+                selected.querySelector('span').textContent = selectedItem.textContent.trim();
+                selectedGame = selectedItem.getAttribute('data-game');
+                dropdownList.style.display = 'none';
+                selected.classList.remove('active');
+            }
+        });
+
+        function submitName() {
+            // Get the user's name from the input field
+            var name = document.getElementById("name").value;
+
+            // Store the name in local storage (or session storage)
+            localStorage.setItem("name", name); 
+
+            // Redirect to the next page (rockndscissors.html)
+            window.location.href = "rockndscissors.html"; 
+        }
+
+    </script>
+</body>
+
+</html>
