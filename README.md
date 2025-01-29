@@ -15,7 +15,9 @@ At **JavaScript Arcade**, we bring you a **variety of games** with different cha
 - Constant updates and new games 🎮
 
 ---
-
+## ✨ **Credits** 
+CodingNepal :- [YT Link](https://youtu.be/OORUHkgg4IM?si=b2eIWDU2dMLEPXij)
+CodeExplainOrg :- [Github Link](https://github.com/CodeExplainedRepo/Original-Flappy-bird-JavaScript/tree/master)
 ## 🐞 **Known Bugs**  
 
 > 🕵️ **Currently Bug-Free!**  
