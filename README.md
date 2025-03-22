@@ -52,7 +52,7 @@ Take a look at some of the amazing game previews and screenshots from **JavaScri
 
 ## 🌐 **Play Now** 
 Explore and try out the games on the **JavaScript Arcade** website! Have fun and challenge yourself! 😎✨  
-🔗 [JavaScript Arcade](https://diptanu761.github.io/JavaScript-Arcade)
+🔗 [JavaScript Arcade](https://javascriptarcade.vercel.app/)
 
 ---
 
